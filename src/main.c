@@ -38,17 +38,27 @@
 
 #include "LinkedList/linked_list.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 
 int main(void)
 {
     IntegerLinkedList list;
-    if (linked_list_initialize(&list))
+
+    if (!linked_list_initialize_from_file(&list, "test_input.txt"))
     {
-        printf("Success.\n");
+        printf("Failed to initialize list!\n");
+        return 1;
     }
 
+    linked_list_print_list(&list);
+
+
+
+
+
+
+
+    linked_list_cleanup(&list);
 
     return 0;
 }

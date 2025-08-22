@@ -10,10 +10,13 @@
 #include "linked_list.h"
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define FILE_EXTENTION_SIZE 4
+#define MINIMUM_NAME_LENGTH 4
 #define BUFFER_SIZE 255
+#define READ_SUCCESS 1
 
 // Definition for a linked list node.
 // Contains:
@@ -46,8 +49,8 @@ bool linked_list_initialize(IntegerLinkedList *list)
 bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileName)
 {
     // Ensure a file name is provided, and that it contains enough characters
-    // for the file extension + 1 at minimum.
-    if (!fileName && strlen(fileName) > FILE_EXTENTION_SIZE)
+    // for the file extension plus at least one character for the file name.
+    if (!fileName && strlen(fileName) > MINIMUM_NAME_LENGTH)
     {
         printf("ERROR: Please provide the name of a text (.txt) file.\n");
         printf("The list has NOT been initialized!\n");
@@ -69,27 +72,72 @@ bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileN
     }
 
     // Buffer value used to hold data read from file.
-    //int value = 0;
+    int value = 0;
 
-    // Read text from the file, line by line, converting values to
-    // integers and loading them into the list.
-    while (fscanf(file, "d"))
+    // Read text from the file, line by line, converting the text to an integer.
+    while (fscanf(file, "%d", &value) == READ_SUCCESS)
     {
-        //linked_list_push_back(list, value);
-        list->size = 0;
+        // Add the converted integer to the list.
+        linked_list_push_back(list, value);
     }
 
     // Initialization success, return true.
     return true;
 }
 
-// TODO: 
-// TODO: // Cleanup
-// TODO: void linked_list_cleanup(IntegerLinkedList *list);
-// TODO: 
-// TODO: // Modifiers
-// TODO: void linked_list_clear(IntegerLinkedList *list);
-// TODO: void linked_list_push_back(IntegerLinkedList *list, int const value);
+// Cleanup
+void linked_list_cleanup(IntegerLinkedList *list)
+{
+    linked_list_clear(list);
+}
+
+// Modifiers
+void linked_list_clear(IntegerLinkedList *list)
+{
+    IntegerNode *current = list->head;
+    IntegerNode *next = NULL;
+
+    while (current)
+    {
+        next = current->next;
+
+        free(current);
+
+        current = next;
+    }
+
+    list->size = 0;
+    list->head = NULL;
+    list->tail = NULL;
+}
+
+void linked_list_push_back(IntegerLinkedList *list, int const value)
+{
+    IntegerNode *node = (IntegerNode *)malloc(sizeof(IntegerNode));
+
+    if (!node)
+    {
+        fprintf(stderr, "Memory allocation failed!\n");
+        abort();
+    }
+
+    node->next = NULL;
+    node->data = value;
+
+    if (list->tail)
+    {
+        list->tail->next = node;
+        list->tail = node;
+    }
+    else
+    {
+        list->head = node;
+        list->tail = node;
+    }
+
+    ++list->size;
+}
+
 // TODO: void linked_list_push_front(IntegerLinkedList *list, int const value);
 // TODO: void linked_list_pop_back(IntegerLinkedList *list);
 // TODO: void linked_list_pop_front(IntegerLinkedList *list);
@@ -103,7 +151,7 @@ bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileN
 // TODO: 
 // TODO: // Search
 // TODO: size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
-// TODO: 
+
 // Print the list.
 void linked_list_print_list(IntegerLinkedList const *list)
 {
@@ -116,7 +164,7 @@ void linked_list_print_list(IntegerLinkedList const *list)
     {
         printf(" %d", node->data);
 
-        if (node->next)
+        if ((node = node->next))
         {
             printf(",");
         }
@@ -124,3 +172,4 @@ void linked_list_print_list(IntegerLinkedList const *list)
 
     printf(" }\n");
 }
+
