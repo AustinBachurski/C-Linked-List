@@ -44,17 +44,21 @@ int main(void)
 {
     IntegerLinkedList list;
 
-    if (!linked_list_initialize_from_file(&list, "test_input.txt"))
+    if (!linked_list_initialize(&list))
     {
         printf("Failed to initialize list!\n");
         return 1;
     }
 
+    linked_list_load_data_from_file(&list, "test_input.txt");
+
     linked_list_print_list(&list);
 
 
-    printf("First value: %d\n", linked_list_front(&list));
-    printf("Last value: %d\n", linked_list_back(&list));
+    printf("Element at 0: %d\n", linked_list_element_at(&list, 0));
+    printf("Element at 2: %d\n", linked_list_element_at(&list, 2));
+    printf("Element at 4: %d\n", linked_list_element_at(&list, 4));
+    //printf("Element at 5: %d\n", linked_list_element_at(&list, 5));
 
 
 

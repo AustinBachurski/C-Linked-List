@@ -18,6 +18,19 @@
 #define BUFFER_SIZE 255
 #define READ_SUCCESS 1
 
+static void internal_bad_alloc(void)
+{
+    fprintf(stderr, "Memory allocation failed!\n");
+    abort();
+}
+
+static void internal_out_of_bounds(size_t const size, size_t const index)
+{
+    fprintf(stderr, "Attempt to access index out of range!\n");
+    fprintf(stderr, "Index %zu of list with size %zu.\n", index, size);
+    abort();
+}
+
 // Definition for a linked list node.
 // Contains:
 // - Pointer to the next node.
@@ -48,17 +61,14 @@ bool linked_list_initialize(IntegerLinkedList *list)
 }
 
 // Initialize the linked list handle and populate with values from a file.
-bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileName)
+void linked_list_load_data_from_file(IntegerLinkedList *list, char const *fileName)
 {
     // Ensure a file name is provided, and that it contains enough characters
     // for the file extension plus at least one character for the file name.
     if (!fileName && strlen(fileName) > MINIMUM_NAME_LENGTH)
     {
         fprintf(stderr, "ERROR: Please provide the name of a text (.txt) file.\n");
-        fprintf(stderr, "The list has NOT been initialized!\n");
-
-        // Initialization failed, return false.
-        return false;
+        return;
     }
 
     // Attempt to open file for reading.
@@ -67,10 +77,6 @@ bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileN
     if (!file)
     {
         fprintf(stderr, "ERROR: Unable to open %s file.\n", fileName);
-        fprintf(stderr, "The list has NOT been initialized!\n");
-
-        // Initialization failed, return false.
-        return false;
     }
 
     // Buffer value used to hold data read from file.
@@ -79,12 +85,10 @@ bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileN
     // Read text from the file, line by line, converting the text to an integer.
     while (fscanf(file, "%d", &value) == READ_SUCCESS)
     {
+        printf("Writing %d to the list.\n", value);
         // Add the converted integer to the list.
         linked_list_push_back(list, value);
     }
-
-    // Initialization success, return true.
-    return true;
 }
 
 // Cleanup
@@ -117,11 +121,7 @@ void linked_list_push_back(IntegerLinkedList *list, int const value)
 {
     IntegerNode *node = (IntegerNode *)malloc(sizeof(IntegerNode));
 
-    if (!node)
-    {
-        fprintf(stderr, "Memory allocation failed!\n");
-        abort();
-    }
+    if (!node) { internal_bad_alloc(); }
 
     node->next = NULL;
     node->data = value;
@@ -147,11 +147,7 @@ void linked_list_push_front(IntegerLinkedList *list, int const value)
 {
     IntegerNode *node = (IntegerNode *)malloc(sizeof(IntegerNode));
 
-    if (!node)
-    {
-        fprintf(stderr, "Memory allocation failed!\n");
-        abort();
-    }
+    if (!node) { internal_bad_alloc(); }
 
     node->previous = NULL;
     node->data = value;
@@ -221,12 +217,7 @@ void linked_list_pop_front(IntegerLinkedList *list)
 
 void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index)
 {
-    if (index >= list->size)
-    {
-        fprintf(stderr, "Attempt to access index out of range!\n");
-        fprintf(stderr, "No elements have been removed.\n");
-        return;
-    }
+    if (index >= list->size) { internal_out_of_bounds(list->size, index); }
 
     IntegerNode *node = list->head;
 
@@ -301,7 +292,22 @@ int linked_list_front(IntegerLinkedList const *list)
     return list->tail->data;
 }
 
-// TODO: int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
+int linked_list_element_at(IntegerLinkedList const *list, size_t const index)
+{
+    if (index >= list->size) { internal_out_of_bounds(list->size, index); }
+
+    IntegerNode *node = list->head;
+
+    size_t nodeIndex = 0;
+
+    while (nodeIndex < index)
+    {
+        node = node->next;
+        ++nodeIndex;
+    }
+
+    return node->data;
+}
 
 // Search
 size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value)

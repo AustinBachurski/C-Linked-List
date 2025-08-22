@@ -28,7 +28,7 @@ typedef struct IntegerLinkedList
 
 // Initialization
 bool linked_list_initialize(IntegerLinkedList *list);
-bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileName);
+void linked_list_load_data_from_file(IntegerLinkedList *list, char const *fileName);
 
 // Cleanup
 void linked_list_cleanup(IntegerLinkedList *list);
@@ -45,7 +45,7 @@ void linked_list_remove_value(IntegerLinkedList *list, int const value);
 // Element Access
 int linked_list_back(IntegerLinkedList const *list);
 int linked_list_front(IntegerLinkedList const *list);
-//int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
+int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
 
 // Search
 size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
