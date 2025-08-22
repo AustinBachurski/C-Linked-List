@@ -295,9 +295,29 @@ void linked_list_remove_value(IntegerLinkedList *list, int const value)
 // TODO: int linked_list_back(IntegerLinkedList const *list);
 // TODO: int linked_list_front(IntegerLinkedList const *list);
 // TODO: int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
-// TODO: 
-// TODO: // Search
-// TODO: size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
+
+// Search
+size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value)
+{
+    IntegerNode *node = list->head;
+
+    size_t index = 0;
+
+    while (node)
+    {
+        if (node->data == value)
+        {
+            return index;
+        }
+
+        node = node->next;
+        ++index;
+    }
+
+    fprintf(stderr, "Value %d was not found in the list.\n", value);
+
+    return index;
+}
 
 // Print the list.
 void linked_list_print_list(IntegerLinkedList const *list)

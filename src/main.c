@@ -53,11 +53,10 @@ int main(void)
     linked_list_print_list(&list);
 
 
-    linked_list_remove_value(&list, 69);
-    linked_list_print_list(&list);
-    linked_list_remove_value(&list, 42);
-    linked_list_print_list(&list);
-    linked_list_remove_value(&list, 3);
+    printf("Value at: %zu\n", linked_list_find_index_of(&list, 69));
+    printf("Value at: %zu\n", linked_list_find_index_of(&list, 42));
+    printf("Value at: %zu\n", linked_list_find_index_of(&list, 3));
+    printf("Value at: %zu\n", linked_list_find_index_of(&list, 13));
 
 
 

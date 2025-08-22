@@ -48,7 +48,7 @@ void linked_list_remove_value(IntegerLinkedList *list, int const value);
 //int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
 
 // Search
-//size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
+size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
 
 // Display
 void linked_list_print_list(IntegerLinkedList const *list);
