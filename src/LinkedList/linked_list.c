@@ -21,10 +21,12 @@
 // Definition for a linked list node.
 // Contains:
 // - Pointer to the next node.
+// - Pointer to the previous node.
 // - Integer value being stored.
 typedef struct IntegerNode
 {
     struct IntegerNode *next;
+    struct IntegerNode *previous;
     int data;
 } IntegerNode;
 
@@ -126,11 +128,14 @@ void linked_list_push_back(IntegerLinkedList *list, int const value)
 
     if (list->tail)
     {
+        node->previous = list->tail;
+
         list->tail->next = node;
         list->tail = node;
     }
     else
     {
+        node->previous = NULL;
         list->head = node;
         list->tail = node;
     }
@@ -148,11 +153,14 @@ void linked_list_push_front(IntegerLinkedList *list, int const value)
         abort();
     }
 
+    node->previous = NULL;
     node->data = value;
 
     if (list->head)
     {
         node->next = list->head;
+
+        list->head->previous = node;
         list->head = node;
     }
     else
@@ -165,7 +173,22 @@ void linked_list_push_front(IntegerLinkedList *list, int const value)
     ++list->size;
 }
 
-// TODO: void linked_list_pop_back(IntegerLinkedList *list);
+void linked_list_pop_back(IntegerLinkedList *list)
+{
+    if (!list->tail)
+    {
+        return;
+    }
+
+    list->tail = list->tail->previous;
+
+    free(list->tail->next);
+
+    list->tail->next = NULL;
+
+    --list->size;
+}
+
 // TODO: void linked_list_pop_front(IntegerLinkedList *list);
 // TODO: void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index);
 // TODO: void linked_list_remove_value(IntegerLinkedList *list, int const value);

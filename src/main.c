@@ -55,7 +55,9 @@ int main(void)
 
 
 
-    linked_list_push_front(&list, 69);
+    linked_list_pop_back(&list);
+    linked_list_pop_back(&list);
+    linked_list_pop_back(&list);
 
 
 
