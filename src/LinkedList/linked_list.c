@@ -54,8 +54,8 @@ bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileN
     // for the file extension plus at least one character for the file name.
     if (!fileName && strlen(fileName) > MINIMUM_NAME_LENGTH)
     {
-        printf("ERROR: Please provide the name of a text (.txt) file.\n");
-        printf("The list has NOT been initialized!\n");
+        fprintf(stderr, "ERROR: Please provide the name of a text (.txt) file.\n");
+        fprintf(stderr, "The list has NOT been initialized!\n");
 
         // Initialization failed, return false.
         return false;
@@ -66,8 +66,8 @@ bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileN
 
     if (!file)
     {
-        printf("ERROR: Unable to open %s file.\n", fileName);
-        printf("The list has NOT been initialized!\n");
+        fprintf(stderr, "ERROR: Unable to open %s file.\n", fileName);
+        fprintf(stderr, "The list has NOT been initialized!\n");
 
         // Initialization failed, return false.
         return false;
@@ -219,7 +219,43 @@ void linked_list_pop_front(IntegerLinkedList *list)
     }
 }
 
-// TODO: void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index);
+void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index)
+{
+    if (index >= list->size)
+    {
+        fprintf(stderr, "Attempt to access index out of range!\n");
+        fprintf(stderr, "No elements have been removed.\n");
+        return;
+    }
+
+    IntegerNode *node = list->head;
+
+    size_t nodeIndex = 0;
+
+    while (nodeIndex < index)
+    {
+        node = node->next;
+        ++nodeIndex;
+    }
+
+    if (node == list->head)
+    {
+        linked_list_pop_front(list);
+        return;
+    }
+    
+    if (node == list->tail)
+    {
+        linked_list_pop_back(list);
+        return;
+    }
+
+    node->previous->next = node->next;
+    node->next->previous = node->previous;
+    free(node);
+    --list->size;
+}
+
 // TODO: void linked_list_remove_value(IntegerLinkedList *list, int const value);
 // TODO: 
 // TODO: // Element Access
