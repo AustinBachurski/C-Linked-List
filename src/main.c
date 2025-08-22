@@ -55,9 +55,12 @@ int main(void)
 
 
 
+    linked_list_push_front(&list, 69);
 
 
 
+
+    linked_list_print_list(&list);
     linked_list_cleanup(&list);
 
     return 0;

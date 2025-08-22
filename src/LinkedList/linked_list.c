@@ -138,7 +138,33 @@ void linked_list_push_back(IntegerLinkedList *list, int const value)
     ++list->size;
 }
 
-// TODO: void linked_list_push_front(IntegerLinkedList *list, int const value);
+void linked_list_push_front(IntegerLinkedList *list, int const value)
+{
+    IntegerNode *node = (IntegerNode *)malloc(sizeof(IntegerNode));
+
+    if (!node)
+    {
+        fprintf(stderr, "Memory allocation failed!\n");
+        abort();
+    }
+
+    node->data = value;
+
+    if (list->head)
+    {
+        node->next = list->head;
+        list->head = node;
+    }
+    else
+    {
+        node->next = NULL;
+        list->head = node;
+        list->tail = node;
+    }
+    
+    ++list->size;
+}
+
 // TODO: void linked_list_pop_back(IntegerLinkedList *list);
 // TODO: void linked_list_pop_front(IntegerLinkedList *list);
 // TODO: void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index);
