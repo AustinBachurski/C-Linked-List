@@ -256,7 +256,40 @@ void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index)
     --list->size;
 }
 
-// TODO: void linked_list_remove_value(IntegerLinkedList *list, int const value);
+void linked_list_remove_value(IntegerLinkedList *list, int const value)
+{
+    IntegerNode *node = list->head;
+
+    while (node)
+    {
+        if (node->data == value)
+        {
+            if (node == list->head)
+            {
+                linked_list_pop_front(list);
+                return;
+            }
+
+            if (node == list->tail)
+            {
+                linked_list_pop_back(list);
+                return;
+            }
+
+            node->previous->next = node->next;
+            node->next->previous = node->previous;
+            free(node);
+            --list->size;
+            return;
+        }
+
+        node = node->next;
+    }
+
+    fprintf(stderr, "Value %d was not found in the list.\n", value);
+    fprintf(stderr, "No values were removed.\n");
+}
+
 // TODO: 
 // TODO: // Element Access
 // TODO: int linked_list_back(IntegerLinkedList const *list);

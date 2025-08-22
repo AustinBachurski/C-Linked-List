@@ -53,11 +53,11 @@ int main(void)
     linked_list_print_list(&list);
 
 
-    linked_list_remove_at_index(&list, 5);
+    linked_list_remove_value(&list, 69);
     linked_list_print_list(&list);
-    linked_list_remove_at_index(&list, 4);
+    linked_list_remove_value(&list, 42);
     linked_list_print_list(&list);
-    linked_list_remove_at_index(&list, 0);
+    linked_list_remove_value(&list, 3);
 
 
 
