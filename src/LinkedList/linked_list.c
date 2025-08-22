@@ -180,16 +180,45 @@ void linked_list_pop_back(IntegerLinkedList *list)
         return;
     }
 
-    list->tail = list->tail->previous;
+    if (list->tail->previous)
+    {
+        list->tail = list->tail->previous;
 
-    free(list->tail->next);
+        free(list->tail->next);
 
-    list->tail->next = NULL;
+        list->tail->next = NULL;
 
-    --list->size;
+        --list->size;
+    }
+    else
+    {
+        linked_list_clear(list);
+    }
 }
 
-// TODO: void linked_list_pop_front(IntegerLinkedList *list);
+void linked_list_pop_front(IntegerLinkedList *list)
+{
+    if (!list->head)
+    {
+        return;
+    }
+
+    if (list->head->next)
+    {
+        list->head = list->head->next;
+
+        free(list->head->previous);
+
+        list->head->previous = NULL;
+
+        --list->size;
+    }
+    else
+    {
+        linked_list_clear(list);
+    }
+}
+
 // TODO: void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index);
 // TODO: void linked_list_remove_value(IntegerLinkedList *list, int const value);
 // TODO: 

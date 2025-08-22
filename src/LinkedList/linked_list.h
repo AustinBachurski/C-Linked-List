@@ -38,7 +38,7 @@ void linked_list_clear(IntegerLinkedList *list);
 void linked_list_push_back(IntegerLinkedList *list, int const value);
 void linked_list_push_front(IntegerLinkedList *list, int const value);
 void linked_list_pop_back(IntegerLinkedList *list);
-//void linked_list_pop_front(IntegerLinkedList *list);
+void linked_list_pop_front(IntegerLinkedList *list);
 //void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index);
 //void linked_list_remove_value(IntegerLinkedList *list, int const value);
 
