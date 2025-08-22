@@ -36,13 +36,20 @@
 
 
 
+#include "LinkedList/linked_list.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 
 int main(void)
 {
-	printf("Do it haz workingz?\n");
+    IntegerLinkedList list;
+    if (linked_list_initialize(&list))
+    {
+        printf("Success.\n");
+    }
+
+
     return 0;
 }
 

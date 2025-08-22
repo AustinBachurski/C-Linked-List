@@ -9,6 +9,16 @@
 
 #include "linked_list.h"
 
+#include <stdbool.h>
+#include <string.h>
+
+#define FILE_EXTENTION_SIZE 4
+#define BUFFER_SIZE 255
+
+// Definition for a linked list node.
+// Contains:
+// - Pointer to the next node.
+// - Integer value being stored.
 typedef struct IntegerNode
 {
     struct IntegerNode *next;
@@ -16,9 +26,63 @@ typedef struct IntegerNode
 } IntegerNode;
 
 
-// TODO: // Initialization
-// TODO: void linked_list_initialize(IntegerLinkedList *list);
-// TODO: void linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileName);
+// Initialize the linked list handle.
+bool linked_list_initialize(IntegerLinkedList *list)
+{
+    // Set the head pointer of the list to null.
+    list->head = NULL;
+
+    // Set the tail pointer of the list to null.
+    list->tail = NULL;
+
+    // Set the element count to zero.
+    list->size = 0;
+
+    // Initialization success, return true.
+    return true;
+}
+
+// Initialize the linked list handle and populate with values from a file.
+bool linked_list_initialize_from_file(IntegerLinkedList *list, char const *fileName)
+{
+    // Ensure a file name is provided, and that it contains enough characters
+    // for the file extension + 1 at minimum.
+    if (!fileName && strlen(fileName) > FILE_EXTENTION_SIZE)
+    {
+        printf("ERROR: Please provide the name of a text (.txt) file.\n");
+        printf("The list has NOT been initialized!\n");
+
+        // Initialization failed, return false.
+        return false;
+    }
+
+    // Attempt to open file for reading.
+    FILE *file = fopen(fileName, "r");
+
+    if (!file)
+    {
+        printf("ERROR: Unable to open %s file.\n", fileName);
+        printf("The list has NOT been initialized!\n");
+
+        // Initialization failed, return false.
+        return false;
+    }
+
+    // Buffer value used to hold data read from file.
+    //int value = 0;
+
+    // Read text from the file, line by line, converting values to
+    // integers and loading them into the list.
+    while (fscanf(file, "d"))
+    {
+        //linked_list_push_back(list, value);
+        list->size = 0;
+    }
+
+    // Initialization success, return true.
+    return true;
+}
+
 // TODO: 
 // TODO: // Cleanup
 // TODO: void linked_list_cleanup(IntegerLinkedList *list);
@@ -40,5 +104,23 @@ typedef struct IntegerNode
 // TODO: // Search
 // TODO: size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
 // TODO: 
-// TODO: // Display
-// TODO: void linked_list_print_list(IntegerLinkedList const *list);
+// Print the list.
+void linked_list_print_list(IntegerLinkedList const *list)
+{
+    IntegerNode *node = list->head;
+
+    printf("List contains %zu elements.\n", list->size);
+    printf("{");
+
+    while (node)
+    {
+        printf(" %d", node->data);
+
+        if (node->next)
+        {
+            printf(",");
+        }
+    }
+
+    printf(" }\n");
+}
