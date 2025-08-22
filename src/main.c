@@ -53,10 +53,8 @@ int main(void)
     linked_list_print_list(&list);
 
 
-    printf("Value at: %zu\n", linked_list_find_index_of(&list, 69));
-    printf("Value at: %zu\n", linked_list_find_index_of(&list, 42));
-    printf("Value at: %zu\n", linked_list_find_index_of(&list, 3));
-    printf("Value at: %zu\n", linked_list_find_index_of(&list, 13));
+    printf("First value: %d\n", linked_list_front(&list));
+    printf("Last value: %d\n", linked_list_back(&list));
 
 
 

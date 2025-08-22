@@ -290,10 +290,17 @@ void linked_list_remove_value(IntegerLinkedList *list, int const value)
     fprintf(stderr, "No values were removed.\n");
 }
 
-// TODO: 
-// TODO: // Element Access
-// TODO: int linked_list_back(IntegerLinkedList const *list);
-// TODO: int linked_list_front(IntegerLinkedList const *list);
+// Element Access
+int linked_list_back(IntegerLinkedList const *list)
+{
+    return list->head->data;
+}
+
+int linked_list_front(IntegerLinkedList const *list)
+{
+    return list->tail->data;
+}
+
 // TODO: int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
 
 // Search

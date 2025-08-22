@@ -43,8 +43,8 @@ void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index);
 void linked_list_remove_value(IntegerLinkedList *list, int const value);
 
 // Element Access
-//int linked_list_back(IntegerLinkedList const *list);
-//int linked_list_front(IntegerLinkedList const *list);
+int linked_list_back(IntegerLinkedList const *list);
+int linked_list_front(IntegerLinkedList const *list);
 //int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
 
 // Search
