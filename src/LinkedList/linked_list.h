@@ -1,6 +1,6 @@
 /*
 * File Name: linked_list.h
-* Purpose: Contains the public type and function declarations for my
+* Purpose: Contains the public types and function declarations for my
 *          linked list implementation.
 *
 * Author: Austin Bachurski
@@ -48,7 +48,7 @@ int linked_list_front(IntegerLinkedList const *list);
 int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
 
 // Search
-size_t linked_list_find_index_of(IntegerLinkedList const *list, int const value);
+size_t linked_list_find_first_index_containing(IntegerLinkedList const *list, int const value);
 
 // Display
 void linked_list_print_list(IntegerLinkedList const *list);

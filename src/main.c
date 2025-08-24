@@ -1,40 +1,11 @@
 /*
-* TODO:
-* MINIMUM REQUIREMENTS:
-*   - Add or delete items at the beginning of the list.
-*   - Remove items from the end of the list.
-*   - Remove a specific item by index OR by value.
-*
-*   THE PROGRAM WILL BE INTERACTIVE: At a minimum, the end-user will be able to print the list to the screen and add and delete values using the methods above.
-*   - The user will be able to search the list for a particular value.
-*   - The user will be able to input values USING A TEXT FILE AND OUTPUT THE LIST TO A TEXT FILE.
-*
-*   FUNCTION DEFINITIONS SHOULD BE CONTAINED IN A SINGLE SECTION AT THE BEGINNING OF THE PROGRAM - ???
-*
-*
-*   Add a comment block at the beginning to indicate the purpose of the program.
-*   - EXAMPLE TEMPLATE:
-*
-* File Name: linked_list.h
-* Purpose: Contains type and function definitions for my
-*          linked list implementation.
+* File Name: main.c
+* Purpose: Contains the main function with a demo of an implementation
+*          of a linked list for storing integers.
 *
 * Author: Austin Bachurski
 * Date: 08/22/2025
-*
-*
-*   Add comments before each structure, function definition, loop and update statement.
-*   - COMMENT EACH:
-*       - Structure
-*       - Function Definition
-*       - Loop
-*       - Update to a variable, yes even this has to be commented...
 */
-
-
-
-
-
 
 #include "LinkedList/linked_list.h"
 #include <stdio.h>
@@ -46,7 +17,7 @@ int main(void)
 
     if (!linked_list_initialize(&list))
     {
-        printf("Failed to initialize list!\n");
+        printf("Failed to initialize the list!\n");
         return 1;
     }
 
@@ -54,11 +25,7 @@ int main(void)
 
     linked_list_print_list(&list);
 
-
-    printf("Element at 0: %d\n", linked_list_element_at(&list, 0));
-    printf("Element at 2: %d\n", linked_list_element_at(&list, 2));
-    printf("Element at 4: %d\n", linked_list_element_at(&list, 4));
-    //printf("Element at 5: %d\n", linked_list_element_at(&list, 5));
+    linked_list_remove_value(&list, 1);
 
 
 
