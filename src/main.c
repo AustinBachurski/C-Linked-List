@@ -8,6 +8,8 @@
 */
 
 #include "LinkedList/linked_list.h"
+#include "LinkedList/Demo/linked_list_demo.h"
+
 #include <stdio.h>
 
 
@@ -21,16 +23,8 @@ int main(void)
         return 1;
     }
 
-    linked_list_load_data_from_file(&list, "test_input.txt");
+    demo_begin(&list);
 
-    linked_list_print_list(&list);
-
-    linked_list_remove_value(&list, 1);
-
-
-
-
-    linked_list_print_list(&list);
     linked_list_cleanup(&list);
 
     return 0;
