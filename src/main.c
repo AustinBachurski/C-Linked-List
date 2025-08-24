@@ -4,7 +4,7 @@
 *          of a linked list for storing integers.
 *
 * Author: Austin Bachurski
-* Date: 08/22/2025
+* Date: 08/23/2025
 */
 
 #include "LinkedList/linked_list.h"

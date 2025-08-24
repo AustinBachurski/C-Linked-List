@@ -4,25 +4,36 @@
 *          linked list implementation.
 *
 * Author: Austin Bachurski
-* Date: 08/22/2025
+* Date: 08/23/2025
 */
 
+// Include the header for the linked list.
 #include "linked_list.h"
 
+// Include required cstdlib headers.
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+// Define a constant which will be used to check the string lenth of the 
+// file name passed to load_data_from_file().
 #define MINIMUM_NAME_LENGTH 4
+
+// Define a constant which will be used to indicate that a value was
+// successfully read from the input file in load_data_from_file().
 #define READ_SUCCESS 1
 
+// Internal function that prints a diagnostic message and aborts the program in
+// the unlikely event that memory allocation fails.
 static void internal_bad_alloc(void)
 {
     fprintf(stderr, "Memory allocation failed!\n");
     abort();
 }
 
+// Internal function that prints a diagnostic message and aborts the program if
+// the user attempts to access an index which is outside the bounds of the list.
 static void internal_out_of_bounds(size_t const size, size_t const index)
 {
     fprintf(stderr, "Attempt to access index out of range!\n");

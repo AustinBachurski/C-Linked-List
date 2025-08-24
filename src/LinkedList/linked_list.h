@@ -4,7 +4,7 @@
 *          linked list implementation.
 *
 * Author: Austin Bachurski
-* Date: 08/22/2025
+* Date: 08/23/2025
 */
 
 #ifndef BACHURSKI_LINKED_LIST
@@ -12,7 +12,6 @@
 
 #include <stdbool.h>
 #include <stdio.h>
-
 
 // Linked List Handle
 // Contains:
@@ -25,6 +24,12 @@ typedef struct IntegerLinkedList
     struct IntegerNode *tail;
     size_t size;
 } IntegerLinkedList;
+
+/*
+    * Descriptive comments for the remainging declarations in this file are
+    * included with the definition in the accompanying linked_list.c file.
+    * Comments only serve to separate declarations by their general purpose.
+*/
 
 // Initialization
 bool linked_list_initialize(IntegerLinkedList *list);
