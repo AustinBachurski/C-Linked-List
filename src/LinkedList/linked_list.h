@@ -7,8 +7,8 @@
 * Date: 08/23/2025
 */
 
-#ifndef BACHURSKI_LINKED_LIST
-#define BACHURSKI_LINKED_LIST
+#ifndef BACHURSKI_LINKED_LIST_H
+#define BACHURSKI_LINKED_LIST_H
 
 #include <stdbool.h>
 #include <stdio.h>
