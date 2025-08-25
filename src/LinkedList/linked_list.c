@@ -10,13 +10,13 @@
 // Include the header for the linked list.
 #include "linked_list.h"
 
-// Include required cstdlib headers.
+// Include required stdlib headers.
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-// Defines a constant which will be used to check the string lenth of the 
+// Defines a constant which will be used to check the string length of the
 // file name passed to load_data_from_file().
 #define MINIMUM_NAME_LENGTH 4
 
@@ -82,7 +82,7 @@ void linked_list_load_data_from_file(IntegerLinkedList *list, char const *fileNa
         return;
     }
 
-    // Attempt to open a file of the the provided name file for reading.
+    // Attempt to open a file of the provided name file for reading.
     FILE *file = fopen(fileName, "r");
 
     // If the file failed to open print a diagnostic message and return early.
@@ -151,7 +151,7 @@ void linked_list_clear(IntegerLinkedList *list)
 // argument.
 void linked_list_push_back(IntegerLinkedList *list, int const value)
 {
-    // Alocate memory for the new node.
+    // Allocate memory for the new node.
     IntegerNode *node = (IntegerNode *)malloc(sizeof(IntegerNode));
 
     // If allocation fails, print a diagnostic message and abort the program.
@@ -183,7 +183,7 @@ void linked_list_push_back(IntegerLinkedList *list, int const value)
     {
         // If tail is null there are no nodes in the list, so set the `previous`
         // pointer to null, and point both `head` and `tail` to the local node,
-        // interting it into the list.
+        // inserting it into the list.
         node->previous = NULL;
         list->head = node;
         list->tail = node;
@@ -197,7 +197,7 @@ void linked_list_push_back(IntegerLinkedList *list, int const value)
 // argument.
 void linked_list_push_front(IntegerLinkedList *list, int const value)
 {
-    // Alocate memory for the new node.
+    // Allocate memory for the new node.
     IntegerNode *node = (IntegerNode *)malloc(sizeof(IntegerNode));
 
     // If allocation fails, print a diagnostic message and abort the program.
@@ -229,7 +229,7 @@ void linked_list_push_front(IntegerLinkedList *list, int const value)
     {
         // If head is null there are no nodes in the list, so set the `next`
         // pointer to null, and point both `head` and `tail` to the local node,
-        // interting it into the list.
+        // inserting it into the list.
         node->next = NULL;
         list->head = node;
         list->tail = node;
@@ -254,7 +254,7 @@ void linked_list_pop_back(IntegerLinkedList *list)
 
         // Use the `next` pointer of the second to last node in the list to
         // free the last node in the list, removing the item from the list
-        // and relinquishing it's memory resource.
+        // and relinquishing its memory resource.
         free(list->tail->next);
 
         // After freeing, set the `next` pointer of the last node in the list 
@@ -287,7 +287,7 @@ void linked_list_pop_front(IntegerLinkedList *list)
 
         // Use the `previous` pointer of the second node in the list to
         // free the first node in the list, removing the item from the list
-        // and relinquishing it's memory resource.
+        // and relinquishing its memory resource.
         free(list->head->previous);
 
         // After freeing, set the `previous` pointer of the first node in the
@@ -305,7 +305,7 @@ void linked_list_pop_front(IntegerLinkedList *list)
     }
 }
 
-// Removes a the node at the specified index.
+// Removes a node at the specified index.
 void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index)
 {
     // If the index passed as an argument is greater than the number of
@@ -353,7 +353,7 @@ void linked_list_remove_at_index(IntegerLinkedList *list, size_t const index)
     node->next->previous = node->previous;
 
     // The local node points to the removed node, free said node, relinquishing
-    // it's memory resource.
+    // its memory resource.
     free(node);
 
     // Decrement the number of elements in the list.
@@ -405,7 +405,7 @@ void linked_list_remove_value(IntegerLinkedList *list, int const value)
             IntegerNode *temp = node->next;
 
             // The local node points to the removed node, free said node,
-            // relinquishing it's memory resource.
+            // relinquishing its memory resource.
             free(node);
 
             // Decrement the number of elements in the list.
@@ -462,7 +462,7 @@ int linked_list_element_at(IntegerLinkedList const *list, size_t const index)
     return node->data;
 }
 
-// TODO: Incessent comments...
+// Writes the contents of the list to a file.
 void linked_list_output_to_file(IntegerLinkedList *list, char const *fileName)
 {
     // Ensure a file name is provided, and that it contains enough characters
@@ -474,7 +474,7 @@ void linked_list_output_to_file(IntegerLinkedList *list, char const *fileName)
         return;
     }
 
-    // Attempt to open a file of the the provided name file for writing.
+    // Attempt to open a file of the provided name file for writing.
     FILE *file = fopen(fileName, "w");
 
     // If the file failed to open print a diagnostic message and return early.
@@ -512,7 +512,7 @@ void linked_list_output_to_file(IntegerLinkedList *list, char const *fileName)
     }
 
     // Finally, log the closing brace padded by one space and followed by a 
-    // newline to the console to communicate the end of the list..
+    // newline to the console to communicate the end of the list.
     fprintf(file, " }\n\n");
     
     // Close the file, releasing the resource back to the system.
@@ -580,7 +580,7 @@ void linked_list_print_list(IntegerLinkedList const *list)
     }
 
     // Finally, print the closing brace padded by one space and followed by a 
-    // newline to the console to communicate the end of the list..
+    // newline to the console to communicate the end of the list.
     printf(" }\n\n");
 }
 

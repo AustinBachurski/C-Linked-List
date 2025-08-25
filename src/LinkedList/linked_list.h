@@ -11,7 +11,7 @@
 #ifndef BACHURSKI_LINKED_LIST_H
 #define BACHURSKI_LINKED_LIST_H
 
-// Include required cstdlib headers.
+// Include required stdlib headers.
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -28,7 +28,7 @@ typedef struct IntegerLinkedList
 } IntegerLinkedList;
 
 /*
-    * Descriptive comments for the remainging declarations in this file are
+    * Descriptive comments for the remaining declarations in this file are
     * included with the definition in the accompanying linked_list.c file.
     * Comments only serve to separate declarations by their general purpose.
 */

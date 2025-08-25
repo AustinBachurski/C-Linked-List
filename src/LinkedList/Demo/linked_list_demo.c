@@ -11,7 +11,7 @@
 #include "linked_list_demo.h"
 #include "../linked_list.h"
 
-// Include required cstdlib headers.
+// Include required stdlib headers.
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +28,7 @@
 // successfully read from the input file in load_data_from_file().
 #define READ_SUCCESS 1
 
-// Issue platform depended calls to clear the console.
+// Issue platform dependent calls to clear the console.
 static void clear_screen(void )
 {
 // Terminal command to clear the screen is different between Windows and Unix.
@@ -265,7 +265,7 @@ static void remove_at_index(IntegerLinkedList *list)
     print_list_after(list);
 }
 
-// Removes all occurances of a value from the list.
+// Removes all occurrences of a value from the list.
 static void remove_number(IntegerLinkedList *list)
 {
     clear_screen();
@@ -284,13 +284,13 @@ static void remove_number(IntegerLinkedList *list)
     // didn't exist in the list.
     if (before == list->size)
     {
-        printf("No occurances of %d to remove.\n\n", value);
+        printf("No occurrences of %d to remove.\n\n", value);
     }
     // If the list is smaller after the operation, report how many elements 
     // were removed from the list.
     else
     {
-        printf("Removed %zu occurances of %d.\n\n", before - list->size, value);
+        printf("Removed %zu occurrences of %d.\n\n", before - list->size, value);
     }
 
     print_list_after(list);

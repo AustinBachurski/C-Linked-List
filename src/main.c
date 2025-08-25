@@ -11,7 +11,7 @@
 #include "LinkedList/linked_list.h"
 #include "LinkedList/Demo/linked_list_demo.h"
 
-// Include required cstdlib header.
+// Include required stdlib header.
 #include <stdio.h>
 
 
