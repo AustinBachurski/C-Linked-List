@@ -4,12 +4,14 @@
 *          linked list implementation.
 *
 * Author: Austin Bachurski
-* Date: 08/23/2025
+* Date: 08/25/2025
 */
 
+// Header guard.
 #ifndef BACHURSKI_LINKED_LIST_H
 #define BACHURSKI_LINKED_LIST_H
 
+// Include required cstdlib headers.
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -61,5 +63,6 @@ size_t linked_list_find_first_index_containing(IntegerLinkedList const *list, in
 // Display
 void linked_list_print_list(IntegerLinkedList const *list);
 
+// End of header guard.
 #endif
 

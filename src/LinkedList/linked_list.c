@@ -1,10 +1,10 @@
 /*
 * File Name: linked_list.c
-* Purpose: Contains types and function definitions for my
+* Purpose: Contains constants, types, and function definitions for my
 *          linked list implementation.
 *
 * Author: Austin Bachurski
-* Date: 08/23/2025
+* Date: 08/25/2025
 */
 
 // Include the header for the linked list.
@@ -16,11 +16,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define a constant which will be used to check the string lenth of the 
+// Defines a constant which will be used to check the string lenth of the 
 // file name passed to load_data_from_file().
 #define MINIMUM_NAME_LENGTH 4
 
-// Define a constant which will be used to indicate that a value was
+// Defines a constant which will be used to indicate that a value was
 // successfully read from the input file in load_data_from_file().
 #define READ_SUCCESS 1
 
