@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#define INPUT_BUFFER_LEN 255
+#define FORMATTER_SIZE 16
 
 // Issue platform depended calls to clear the console.
 static void clear_screen(void )
@@ -13,8 +17,33 @@ static void clear_screen(void )
     system("cls");
 #else
     // Unix command to clear the console.
-    system("clear");
+    if (system("clear"))
+    {
+        fprintf(stderr, "\nClear screen failed!\n");
+    }
 #endif
+}
+
+static void print_list_after(IntegerLinkedList *list)
+{
+    printf("List after requested operation:\n");
+    linked_list_print_list(list);
+}
+
+static void print_list_before(IntegerLinkedList *list)
+{
+    printf("List before requested operation:\n");
+    linked_list_print_list(list);
+}
+
+static bool is_empty(IntegerLinkedList *list)
+{
+    if (list->size == 0)
+    {
+        printf("List contains no elements to remove, add a value first.\n");
+        return true;
+    }
+    return false;
 }
 
 static int read_number_from_console(char const *message)
@@ -27,6 +56,54 @@ static int read_number_from_console(char const *message)
     {
         printf("Only integers please, enter a number: ");
         while (getchar() != '\n') { }
+    }
+
+    return choice;
+}
+
+static void read_string_from_console(char *buffer, char const *message)
+{
+    printf("%s", message);
+
+    char format_string[FORMATTER_SIZE] = { 0 };
+    sprintf(format_string, "%%%ds", INPUT_BUFFER_LEN - 1);
+
+    while (scanf(format_string, buffer) != 1) { }
+    while (getchar() != '\n') { }
+}
+
+static size_t read_valid_index_from_console(IntegerLinkedList *list,
+                                            char const *message)
+{
+    printf("%s", message);
+
+    size_t choice = list->size + 1;
+
+    if (choice == 0)
+    {
+        while(scanf("%zu", &choice) != 1)
+        {
+            printf("Only positive integers please, enter a number: ");
+            while (getchar() != '\n') { }
+        }
+
+        return choice;
+    }
+
+    while (choice >= list->size)
+    {
+        while(scanf("%zu", &choice) != 1)
+        {
+            printf("Only positive integers please, enter a number: ");
+            while (getchar() != '\n') { }
+        }
+
+        if (choice >= list->size)
+        {
+            printf("That index it out of the bounds of the list and cannot be used.\n");
+            linked_list_print_list(list);
+            printf("Please enter a valid index: ");
+        }
     }
 
     return choice;
@@ -59,16 +136,18 @@ static void push_front(IntegerLinkedList *list)
 
     int value = read_number_from_console("Enter the number you wish to add: ");
 
+    print_list_before(list);
     linked_list_push_front(list, value);
-    linked_list_print_list(list);
+    print_list_after(list);
 }
 
 static void pop_front(IntegerLinkedList *list)
 {
     clear_screen();
 
+    print_list_before(list);
     linked_list_pop_front(list);
-    linked_list_print_list(list);
+    print_list_after(list);
 }
 
 static void push_back(IntegerLinkedList *list)
@@ -77,27 +156,50 @@ static void push_back(IntegerLinkedList *list)
 
     int value = read_number_from_console("Enter the number you wish to add: ");
 
+    print_list_before(list);
     linked_list_push_back(list, value);
-    linked_list_print_list(list);
+    print_list_after(list);
 }
 
 static void pop_back(IntegerLinkedList *list)
 {
     clear_screen();
+    print_list_before(list);
     linked_list_pop_back(list);
+    print_list_after(list);
+}
+
+static void remove_at_index(IntegerLinkedList *list)
+{
+    clear_screen();
+
     linked_list_print_list(list);
+
+    size_t index = read_valid_index_from_console(list, 
+        "Enter the index for the value you with to remove: ");
+
+    print_list_before(list);
+
+    linked_list_remove_at_index(list, index);
+
+    print_list_after(list);
 }
 
 static void print_list(IntegerLinkedList *list)
 {
     clear_screen();
+
     linked_list_print_list(list);
 }
 
 static void search_list(IntegerLinkedList *list)
 {
     clear_screen();
+
+    linked_list_print_list(list);
+
     int value = read_number_from_console("Enter the number you wish to find: ");
+
     size_t index = linked_list_find_first_index_containing(list, value);
     
     if (index == list->size)
@@ -108,6 +210,77 @@ static void search_list(IntegerLinkedList *list)
     {
         printf("The value %d was found at index %zu.\n\n", value, index);
     }
+}
+
+static void add_from_file(IntegerLinkedList *list)
+{
+    clear_screen();
+
+    char buffer[INPUT_BUFFER_LEN] = { 0 };
+
+    read_string_from_console(buffer, "Enter the file name: ");
+
+    print_list_before(list);
+
+    linked_list_load_data_from_file(list, buffer);
+
+    print_list_after(list);
+}
+
+static void output_to_file(IntegerLinkedList *list)
+{
+    clear_screen();
+
+    char buffer[INPUT_BUFFER_LEN] = { 0 };
+
+    read_string_from_console(buffer, "Enter the file name: ");
+
+    linked_list_output_to_file(list, buffer);
+
+    printf("List contents written to '%s'\n", buffer);
+
+    linked_list_print_list(list);
+}
+
+static void read_front(IntegerLinkedList *list)
+{
+    clear_screen();
+
+    linked_list_print_list(list);
+
+    printf("Value at the beginning of the list: %d\n\n", linked_list_front(list));
+}
+
+static void read_back(IntegerLinkedList *list)
+{
+    clear_screen();
+
+    linked_list_print_list(list);
+
+    printf("Value at the end of the list: %d\n\n", linked_list_back(list));
+}
+
+static void read_at_index(IntegerLinkedList *list)
+{
+    clear_screen();
+
+    linked_list_print_list(list);
+
+    size_t index = read_valid_index_from_console(list, 
+        "Enter the index for the value you with to view: ");
+
+    printf("Value at index %zu: %d\n\n", index, linked_list_element_at(list, index));
+}
+
+static void clear_list(IntegerLinkedList *list)
+{
+    clear_screen();
+
+    print_list_before(list);
+
+    linked_list_clear(list);
+
+    print_list_after(list);
 }
 
 // Begins the interactive demo of the linked list implementation.
@@ -134,6 +307,8 @@ void demo_begin(IntegerLinkedList *list)
                 break;
 
             case 2:
+                if (is_empty(list)) { continue; }
+
                 pop_front(list);
                 break;
 
@@ -142,10 +317,15 @@ void demo_begin(IntegerLinkedList *list)
                 break;
 
             case 4:
+                if (is_empty(list)) { continue; }
+
                 pop_back(list);
                 break;
 
             case 5:
+                if (is_empty(list)) { continue; }
+
+                remove_at_index(list);
                 break;
 
             case 6:
@@ -157,21 +337,33 @@ void demo_begin(IntegerLinkedList *list)
                 break;
 
             case 8:
+                add_from_file(list);
                 break;
 
             case 9:
+                output_to_file(list);
                 break;
 
             case 10:
+                if (is_empty(list)) { continue; }
+
+                read_front(list);
                 break;
 
             case 11:
+                if (is_empty(list)) { continue; }
+
+                read_back(list);
                 break;
 
             case 12:
+                if (is_empty(list)) { continue; }
+
+                read_at_index(list);
                 break;
 
             case 13:
+                clear_list(list);
                 break;
 
             default:
