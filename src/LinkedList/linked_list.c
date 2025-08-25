@@ -498,8 +498,15 @@ void linked_list_print_list(IntegerLinkedList const *list)
     // Store a pointer to the first node in the list.
     IntegerNode *node = list->head;
 
-    // Print the number of elements in the list.
-    printf("List contains %zu elements.\n", list->size);
+    // Print the number of elements in the list with appropriate grammar.
+    if (list->size == 1)
+    {
+        printf("\nList contains %zu element.\n", list->size);
+    }
+    else
+    {
+        printf("\nList contains %zu elements.\n", list->size);
+    }
 
     // Print an opening brace, indicating the start of the list elements.
     printf("{");
@@ -517,6 +524,6 @@ void linked_list_print_list(IntegerLinkedList const *list)
 
     // Finally, print the closing brace padded by one space and followed by a 
     // newline to the console to communicate the end of the list..
-    printf(" }\n");
+    printf(" }\n\n");
 }
 
