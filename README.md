@@ -30,6 +30,6 @@ The utterly insane amount of comments are required by the course rubric and are 
 1. Navigate to the project directory `cd C-Linked-List`
 1. Set up a build directory `cmake -B build`
 1. Build the application `cmake --build build`
-1. Run the application from the `build/bin` directory.
+1. Run the `linked_list` application from the `build/bin` directory.
 	- Windows users may have to navigate to an additional `Debug` directory to access the executable.
 
