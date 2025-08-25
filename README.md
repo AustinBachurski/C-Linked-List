@@ -33,3 +33,7 @@ The utterly insane amount of comments are required by the course rubric and are 
 1. Run the `linked_list` application from the `build/bin` directory.
 	- Windows users may have to navigate to an additional `Debug` directory to access the executable.
 
+## Additional Files
+
+A `test_input.txt` file is included to simplify testing the `input values using a text file` requirement.
+
