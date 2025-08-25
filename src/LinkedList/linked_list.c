@@ -427,13 +427,13 @@ void linked_list_remove_value(IntegerLinkedList *list, int const value)
 // Returns the value stored by the last node in the list.
 int linked_list_back(IntegerLinkedList const *list)
 {
-    return list->head->data;
+    return list->tail->data;
 }
 
 // Returns the value stored by the first node in the list.
 int linked_list_front(IntegerLinkedList const *list)
 {
-    return list->tail->data;
+    return list->head->data;
 }
 
 // Returns the value stored at the specified node.
@@ -558,11 +558,11 @@ void linked_list_print_list(IntegerLinkedList const *list)
     // Print the number of elements in the list with appropriate grammar.
     if (list->size == 1)
     {
-        printf("\nList contains %zu element.\n", list->size);
+        printf("List contains %zu element.\n", list->size);
     }
     else
     {
-        printf("\nList contains %zu elements.\n", list->size);
+        printf("List contains %zu elements.\n", list->size);
     }
 
     // Print an opening brace, indicating the start of the list elements.
