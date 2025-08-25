@@ -52,6 +52,9 @@ int linked_list_back(IntegerLinkedList const *list);
 int linked_list_front(IntegerLinkedList const *list);
 int linked_list_element_at(IntegerLinkedList const *list, size_t const index);
 
+// Output
+void linked_list_output_to_file(IntegerLinkedList *list, char const *fileName);
+
 // Search
 size_t linked_list_find_first_index_containing(IntegerLinkedList const *list, int const value);
 

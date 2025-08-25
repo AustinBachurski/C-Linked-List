@@ -462,6 +462,63 @@ int linked_list_element_at(IntegerLinkedList const *list, size_t const index)
     return node->data;
 }
 
+// TODO: Incessent comments...
+void linked_list_output_to_file(IntegerLinkedList *list, char const *fileName)
+{
+    // Ensure a file name is provided, and that it contains enough characters
+    // for the file extension plus at least one character for the file name.
+    // If not, print a diagnostic message and return early.
+    if (!fileName || strlen(fileName) < MINIMUM_NAME_LENGTH)
+    {
+        fprintf(stderr, "ERROR: Please provide the name of a text (.txt) file.\n");
+        return;
+    }
+
+    // Attempt to open a file of the the provided name file for writing.
+    FILE *file = fopen(fileName, "w");
+
+    // If the file failed to open print a diagnostic message and return early.
+    if (!file)
+    {
+        fprintf(stderr, "ERROR: Unable to open %s file.\n", fileName);
+        return;
+    }
+
+    // Store a pointer to the first node in the list.
+    IntegerNode *node = list->head;
+
+    // Log the number of elements in the list with appropriate grammar.
+    if (list->size == 1)
+    {
+        fprintf(file, "\nList contains %zu element.\n", list->size);
+    }
+    else
+    {
+        fprintf(file, "\nList contains %zu elements.\n", list->size);
+    }
+
+    // Log an opening brace, indicating the start of the list elements.
+    fprintf(file, "{");
+
+    // Iterate through every node in the list.
+    while (node)
+    {
+        // Log the value stored in the current node, preceded by a space.
+        fprintf(file, " %d", node->data);
+
+        // If there is another node in the list, log a comma to communicate
+        // separate elements of the list.
+        if ((node = node->next)) { fprintf(file, ","); }
+    }
+
+    // Finally, log the closing brace padded by one space and followed by a 
+    // newline to the console to communicate the end of the list..
+    fprintf(file, " }\n\n");
+    
+    // Close the file, releasing the resource back to the system.
+    fclose(file);
+}
+
 // Returns the index of the first node that contains the desired value if the 
 // value exists in the list, otherwise the size of the list is returned.
 size_t linked_list_find_first_index_containing(IntegerLinkedList const *list, int const value)
