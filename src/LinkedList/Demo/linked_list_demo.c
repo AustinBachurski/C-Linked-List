@@ -12,7 +12,9 @@
 // Issue platform depended calls to clear the console.
 static void clear_screen(void )
 {
-#ifdef __CYGWIN__
+    // Conditional compilation depending on environment.
+    // Terminal command to clear the screen is different between Windows and Unir.
+#if defined(_WIN32) || defined(_WIN64)
     // Windows command to clear the console.
     system("cls");
 #else
