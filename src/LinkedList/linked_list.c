@@ -490,11 +490,11 @@ void linked_list_output_to_file(IntegerLinkedList *list, char const *fileName)
     // Log the number of elements in the list with appropriate grammar.
     if (list->size == 1)
     {
-        fprintf(file, "\nList contains %zu element.\n", list->size);
+        fprintf(file, "List contains %zu element.\n", list->size);
     }
     else
     {
-        fprintf(file, "\nList contains %zu elements.\n", list->size);
+        fprintf(file, "List contains %zu elements.\n", list->size);
     }
 
     // Log an opening brace, indicating the start of the list elements.
